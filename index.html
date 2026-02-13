@@ -23,7 +23,7 @@
             font-family: 'Space Grotesk', sans-serif; 
             overflow: hidden; 
             color: var(--text);
-            position: fixed; /* Prevents bounce scrolling on iOS */
+            position: fixed;
         }
 
         .container { 
@@ -33,13 +33,14 @@
             justify-content: center; 
             height: 100%; 
             width: 100%;
-            padding: 15px; 
+            padding: 10px; 
         }
 
         .step { 
             display: none; 
             width: 100%; 
-            max-width: 400px; 
+            max-width: 450px; 
+            height: 100%;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -48,118 +49,134 @@
         .step.active { display: flex; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        /* STEP 1: SCAN */
-        .scan-circle { width: 110px; height: 110px; border: 2px solid var(--gold); border-radius: 50%; margin: 15px auto; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* SCANNER */
+        .scan-circle { width: 120px; height: 120px; border: 2px solid var(--gold); border-radius: 50%; margin: 20px 0; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .scan-line { position: absolute; width: 100%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); top: 0; animation: scan 2s linear infinite; }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-        /* STEP 2: MOOD SLIDER */
-        input[type=range] { width: 100%; -webkit-appearance: none; background: transparent; margin: 20px 0; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #333; border-radius: 5px; }
-        input[type=range]::-webkit-slider-thumb { height: 28px; width: 28px; border-radius: 50%; background: var(--pink); cursor: pointer; -webkit-appearance: none; margin-top: -10px; }
+        /* MOOD SLIDER */
+        input[type=range] { width: 90%; -webkit-appearance: none; background: transparent; margin: 30px 0; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 100%; cursor: pointer; background: #333; border-radius: 5px; }
+        input[type=range]::-webkit-slider-thumb { height: 35px; width: 35px; border-radius: 50%; background: var(--pink); cursor: pointer; -webkit-appearance: none; margin-top: -12px; }
 
-        /* STEP 4: MIST WIPE */
-        #mist-container { position: relative; width: 100%; height: 220px; background: #111; border-radius: 15px; overflow: hidden; margin-top: 10px; }
+        /* MIST WIPE */
+        #mist-container { position: relative; width: 100%; height: 280px; background: #111; border-radius: 15px; overflow: hidden; }
         #mist-canvas { position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair; touch-action: none; }
-        .hidden-msg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: #fff; line-height: 1.4; text-align: center; }
+        .hidden-msg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #fff; line-height: 1.5; text-align: center; }
 
-        /* STEP 5: THE STAMP BOND */
+        /* INCREASED HEIGHT STAMP PAPER */
         .stamp-paper { 
             background: #fdfaf0; 
             color: #1a1a1a; 
-            padding: 12px; 
-            border-radius: 2px; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.5); 
+            padding: 15px; 
+            border-radius: 4px; 
+            box-shadow: 0 0 40px rgba(0,0,0,0.8); 
             font-family: 'Courier Prime', monospace; 
             width: 100%;
+            height: 85vh; /* This increases the vertical height significantly */
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
         }
-        .stamp-header { border: 3px solid var(--gold); text-align: center; color: var(--gold); margin-bottom: 8px; padding: 4px; }
-        .clause { font-size: 0.7rem; line-height: 1.2; border-bottom: 1px dotted #ccc; padding: 4px 0; }
-        .witness-img { width: 100%; max-height: 150px; object-fit: cover; border-radius: 4px; border: 2px solid var(--gold); margin-top: 8px; }
 
-        /* BUTTONS & UI */
-        h1 { font-size: 1.4rem; margin: 10px 0; }
-        p { font-size: 0.9rem; margin: 5px 0; color: #bbb; }
-        .btn { background: var(--gold); color: black; border: none; padding: 14px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
-        .coupon-card { background: #1a1a1a; border: 2px dashed var(--gold); padding: 12px; margin-top: 15px; border-radius: 10px; font-weight: bold; color: var(--gold); width: 100%; }
+        .stamp-header { border: 4px solid var(--gold); text-align: center; color: var(--gold); margin-bottom: 15px; padding: 10px; }
+        .clause-list { flex-grow: 1; }
+        .clause { font-size: 0.85rem; line-height: 1.4; border-bottom: 1px dotted #ccc; padding: 8px 0; font-weight: bold; }
+        
+        .witness-img { 
+            width: 100%; 
+            max-height: 250px; /* Made the dog image much taller/larger */
+            object-fit: cover; 
+            border-radius: 4px; 
+            border: 2px solid var(--gold); 
+            margin-top: 15px; 
+        }
+
+        /* BUTTONS */
+        h1 { font-size: 1.8rem; margin: 15px 0; }
+        p { font-size: 1rem; color: #bbb; }
+        .btn { background: var(--gold); color: black; border: none; padding: 18px; border-radius: 10px; font-weight: bold; width: 100%; margin-top: 20px; cursor: pointer; text-transform: uppercase; font-size: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .coupon-card { background: #1a1a1a; border: 2px dashed var(--gold); padding: 15px; margin-top: 20px; border-radius: 10px; font-weight: bold; color: var(--gold); width: 100%; }
     </style>
 </head>
 <body>
 
     <div class="container">
         
-        <!-- STEP 1: BIO-SCAN -->
+        <!-- STEP 1: SCAN -->
         <div id="step1" class="step active">
-            <h1 style="letter-spacing: 3px;">POO-PRINT SCAN</h1>
-            <p>Hold thumb to verify identity, Maalik.</p>
+            <h1 style="letter-spacing: 5px;">POO-PRINT SCAN</h1>
+            <p>Verify identity, Maalik.</p>
             <div class="scan-circle" onmousedown="startScan()" onmouseup="stopScan()" ontouchstart="startScan(event)" ontouchend="stopScan(event)">
                 <div class="scan-line"></div>
-                <div style="font-size: 3rem; opacity: 0.3;">🖐️</div>
+                <div style="font-size: 4rem; opacity: 0.3;">🖐️</div>
             </div>
-            <p id="scan-status" style="color: var(--gold); font-size: 0.7rem;">[ SECURITY PROTOCOL ACTIVE ]</p>
+            <p id="scan-status" style="color: var(--gold);">[ BIOMETRIC READY ]</p>
         </div>
 
-        <!-- STEP 2: MOOD STABILIZER -->
+        <!-- STEP 2: MOOD -->
         <div id="step2" class="step">
             <h1>Mood Stabilizer 🌡️</h1>
-            <p>Set mood before system proceeds.</p>
-            <div id="mood-emoji" style="font-size: 3.5rem; margin: 10px;">😐</div>
+            <p>Current mood assessment...</p>
+            <div id="mood-emoji" style="font-size: 5rem; margin: 20px;">😐</div>
             <input type="range" id="mood-range" min="1" max="5" value="3" oninput="updateMood(this.value)">
-            <p id="mood-text" style="font-weight: bold; color: var(--pink);">Just okay.</p>
-            <button class="btn" id="mood-btn" style="display:none;" onclick="nextStep(3)">Update System</button>
+            <p id="mood-text" style="font-weight: bold; color: var(--pink); font-size: 1.2rem;">Just okay.</p>
+            <button class="btn" id="mood-btn" style="display:none;" onclick="nextStep(3)">Submit to System</button>
         </div>
 
         <!-- STEP 3: CRIMES -->
         <div id="step3" class="step">
             <h1 style="color: var(--pink);">CRIMINAL RECORD</h1>
-            <div style="background: #1a1111; padding: 15px; border-radius: 12px; text-align: left; font-size: 0.8rem; width: 100%;">
-                🚨 Excessive "Gussa" without reason. <br>
-                🚨 Threatening her cute boyfriend baat baat pe. <br>
-                🚨 Being 10x cuter than the legal limit. <br>
-                🚨 Dimaag ka dahi (Specialist).
+            <div style="background: #1a1111; padding: 25px; border-radius: 15px; text-align: left; font-size: 0.95rem; width: 100%;">
+                🚨 Excessive "Gussa" without reason. <br><br>
+                🚨 Threatening her cute boyfriend baat baat pe. <br><br>
+                🚨 Being 10x cuter than the legal limit. <br><br>
+                🚨 Dimaag ka dahi (Gold Medalist).
             </div>
-            <p style="margin-top: 12px; color: var(--gold); font-size: 0.8rem;">VERDICT: Life Sentence with Gulam.</p>
             <button class="btn" onclick="initMistStep()">ACCEPT SAZA 👉</button>
         </div>
 
         <!-- STEP 4: MIST WIPE -->
         <div id="step4" class="step">
-            <h1 style="font-family: 'Playfair Display'; font-style: italic; font-size: 1.2rem;">Wipe the Fog, Poo...</h1>
+            <h1 style="font-family: 'Playfair Display'; font-style: italic;">Clear the Fog, Poo...</h1>
             <div id="mist-container">
                 <div class="hidden-msg" id="typewriter"></div>
                 <canvas id="mist-canvas"></canvas>
             </div>
-            <button class="btn" id="next4" style="display:none;" onclick="nextStep(5)">Proceed to Bond ❤️</button>
+            <button class="btn" id="next4" style="display:none;" onclick="nextStep(5)">View Bond ❤️</button>
         </div>
 
-        <!-- STEP 5: THE BOND -->
+        <!-- STEP 5: THE TALL BOND -->
         <div id="step5" class="step">
             <div class="stamp-paper">
                 <div class="stamp-header">
-                    <div style="font-size: 0.5rem;">OFFICE OF LOVE JUDICIARY</div>
-                    <div style="font-size: 1rem; font-weight: bold;">₹10,000 NON-JUDICIAL</div>
+                    <div style="font-size: 0.7rem; letter-spacing: 2px;">OFFICE OF LOVE JUDICIARY</div>
+                    <div style="font-size: 1.5rem; font-weight: bold;">₹10,000 NON-JUDICIAL</div>
                 </div>
-                <div class="clause">1. Poo promises to never say "Mereko nahi rehna".</div>
-                <div class="clause">2. Gulam (Me) is officially Poo's property.</div>
-                <div class="clause">3. Argument rule: Poo is always right.</div>
-                <div class="clause">4. Witnesses: Poo is the only one for me.</div>
-                <img src="dog.png" class="witness-img">
-                <div style="font-size: 0.5rem; text-align: center; font-weight: bold; margin-top: 4px;">NOTARIZED BY DOGESHWAR JI</div>
+                <div class="clause-list">
+                    <div class="clause">1. Poo promises to never say "Mereko nahi rehna".</div>
+                    <div class="clause">2. Gulam (Me) is officially Poo's property.</div>
+                    <div class="clause">3. Argument rule: Poo is always right.</div>
+                    <div class="clause">4. Witnesses: Poo is the only one for me.</div>
+                </div>
+                <div style="text-align:center;">
+                    <img src="dog.png" class="witness-img">
+                    <div style="font-size: 0.6rem; font-weight: bold; margin-top: 8px;">NOTARIZED BY DOGESHWAR JI</div>
+                </div>
             </div>
             <button class="btn" onclick="finalFinale()">SIGN & SEAL ❤️</button>
         </div>
 
         <!-- STEP 6: FINALE -->
         <div id="step6" class="step">
-            <h1 style="color: var(--pink);">HAPPY VALENTINE'S! ❤️</h1>
-            <p style="font-style: italic; color: #fff;">Ab Momos khila do! 🥟😂</p>
+            <h1 style="color: var(--pink); font-size: 2.2rem;">HAPPY VALENTINE'S! ❤️</h1>
+            <p style="color:white; font-size: 1.2rem;">Ab jaldi se Momos khila do! 🥟😂</p>
             <div class="coupon-card">
-                <div style="font-size: 0.6rem; margin-bottom: 5px;">YOUR REWARD:</div>
-                <div id="coupon-val" style="font-size: 1.1rem; color: #fff;">???</div>
+                <div style="font-size: 0.8rem; margin-bottom: 10px;">SCRATCH REWARD:</div>
+                <div id="coupon-val" style="font-size: 1.4rem; color: #fff;">???</div>
             </div>
-            <button class="btn" id="spin-btn" onclick="spinCoupon()">SPIN REWARD 🎰</button>
+            <button class="btn" id="spin-btn" onclick="spinCoupon()">CLAIM REWARD 🎰</button>
         </div>
 
     </div>
@@ -199,13 +216,13 @@
                 const rect = canvas.getBoundingClientRect();
                 const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
                 const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-                ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
                 checkWipe();
             };
             canvas.addEventListener('mousemove', handleWipe);
             canvas.addEventListener('touchmove', handleWipe);
 
-            let message = "Poo, you are my Jaan. My Jahaan. No matter how 'Pagal' you get, I will always choose you. Every single time. Happy Valentine's Day, Maalik...";
+            let message = "Poo, you are my Jaan. My Jahaan. My best friend. No matter how 'Pagal' you get, I will always choose you. Every single time. Happy Valentine's Day, Maalik...";
             let i = 0; function type() { if(i < message.length) { document.getElementById('typewriter').innerHTML += message.charAt(i); i++; setTimeout(type, 35); } }
             type();
         }
@@ -219,7 +236,7 @@
             let interval = setInterval(() => {
                 document.getElementById('coupon-val').innerText = rewards[Math.floor(Math.random()*rewards.length)];
                 count++;
-                if(count > 12) { clearInterval(interval); document.getElementById('spin-btn').style.display = 'none'; confetti(); }
+                if(count > 15) { clearInterval(interval); document.getElementById('spin-btn').style.display = 'none'; confetti(); }
             }, 80);
         }
 
