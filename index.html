@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Poo-Sonal Grand Finale ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Playfair+Display:ital,wght@1,700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --v-red: #8b0000; --gold: #c5a059; --dark: #050505; --text: #e0e0e0; --pink: #ff4d6d; }
+        * { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: var(--dark); font-family: 'Space Grotesk', sans-serif; overflow: hidden; color: var(--text); }
+        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px; }
+        .step { display: none; width: 100%; max-width: 450px; }
+        .step.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* STEP 1: BIO-SCAN */
+        .scan-circle { width: 120px; height: 120px; border: 2px solid var(--gold); border-radius: 50%; margin: 20px auto; position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .scan-line { position: absolute; width: 100%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); top: 0; animation: scan 2s linear infinite; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* STEP 2: MOOD SLIDER */
+        input[type=range] { width: 80%; -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #333; border-radius: 5px; }
+        input[type=range]::-webkit-slider-thumb { height: 25px; width: 25px; border-radius: 50%; background: var(--pink); cursor: pointer; -webkit-appearance: none; margin-top: -8px; }
+
+        /* STEP 4: MIST WIPE */
+        #mist-container { position: relative; width: 100%; height: 250px; background: #111; border-radius: 15px; overflow: hidden; margin-top: 20px; }
+        #mist-canvas { position: absolute; top: 0; left: 0; z-index: 5; cursor: crosshair; }
+        .hidden-msg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #fff; }
+
+        /* COUPONS */
+        .coupon-card { background: #1a1a1a; border: 2px dashed var(--gold); padding: 15px; margin-top: 20px; border-radius: 10px; font-weight: bold; color: var(--gold); }
+
+        .stamp-paper { background: #fdfaf0; color: #1a1a1a; padding: 20px; text-align: left; border-radius: 2px; box-shadow: 0 0 50px rgba(0,0,0,1); font-family: 'Courier Prime', monospace; max-height: 60vh; overflow-y: auto; }
+        .btn { background: var(--gold); color: black; border: none; padding: 15px 30px; border-radius: 5px; font-weight: bold; width: 100%; margin-top: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .witness-img { width: 100%; border-radius: 5px; border: 2px solid var(--gold); margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- STEP 1: BIO-SCAN -->
+        <div id="step1" class="step active">
+            <h1 style="letter-spacing: 5px;">POO-PRINT SCAN</h1>
+            <p style="color: #666;">Hold thumb to verify that you are the real Maalik</p>
+            <div class="scan-circle" onmousedown="startScan()" onmouseup="stopScan()" ontouchstart="startScan(event)" ontouchend="stopScan(event)">
+                <div class="scan-line"></div>
+                <div style="font-size: 3rem; opacity: 0.3;">🖐️</div>
+            </div>
+            <p id="scan-status" style="color: var(--gold);">[ System Ready ]</p>
+        </div>
+
+        <!-- STEP 2: MOOD STABILIZER -->
+        <div id="step2" class="step">
+            <h1>Mood Stabilizer 🌡️</h1>
+            <p>Set your current mood level for an accurate assessment.</p>
+            <div id="mood-emoji" style="font-size: 4rem; margin: 20px;">😐</div>
+            <input type="range" id="mood-range" min="1" max="5" value="3" oninput="updateMood(this.value)">
+            <p id="mood-text" style="font-weight: bold; color: var(--pink);">Just okay.</p>
+            <button class="btn" id="mood-btn" style="display:none;" onclick="nextStep(3)">Submit to System</button>
+        </div>
+
+        <!-- STEP 3: CRIMES -->
+        <div id="step3" class="step">
+            <h1 style="color: var(--pink);">CRIMINAL RECORD</h1>
+            <div style="background: #1a1111; padding: 20px; border-radius: 15px; text-align: left; font-size: 0.85rem;">
+                🚨 Excessive "Gussa" without reason. <br>
+                🚨 Threatening her cute boyfriend baat baat pe. <br>
+                🚨 Being 10x cuter than the legal limit. <br>
+                🚨 Dimaag ka dahi (Certified Specialist).
+            </div>
+            <p style="margin-top: 15px; color: var(--gold);">VERDICT: Permanent Life Sentence with Gulam.</p>
+            <button class="btn" onclick="initMistStep()">ACCEPT SAZA 👉</button>
+        </div>
+
+        <!-- STEP 4: MIST OF MEMORIES (The Peak) -->
+        <div id="step4" class="step">
+            <h1 style="font-family: 'Playfair Display'; font-style: italic;">Clean the Fog, Poo...</h1>
+            <div id="mist-container">
+                <div class="hidden-msg" id="typewriter"></div>
+                <canvas id="mist-canvas"></canvas>
+            </div>
+            <button class="btn" id="next4" style="display:none;" onclick="nextStep(5)">Proceed to Bond ❤️</button>
+        </div>
+
+        <!-- STEP 5: THE BOND -->
+        <div id="step5" class="step">
+            <div class="stamp-paper">
+                <div style="border: 4px solid var(--gold); text-align: center; color: var(--gold); margin-bottom: 10px;">
+                    <div style="font-size: 0.6rem;">OFFICE OF LOVE JUDICIARY</div>
+                    <div style="font-size: 1.2rem; font-weight: bold;">₹10,000 NON-JUDICIAL</div>
+                </div>
+                <div style="font-size: 0.75rem;">
+                    1. Poo promises to never say "Mereko nahi rehna". <br>
+                    2. Gulam (Me) is officially Poo's property. <br>
+                    3. Argument rule: Poo is always right. <br>
+                    4. Witnesses agree that Poo is the only one for me.
+                </div>
+                <img src="dog.png" class="witness-img">
+                <div style="font-size: 0.5rem; text-align: center; font-weight: bold;">NOTARIZED BY DOGESHWAR JI</div>
+                <button class="btn" onclick="finalFinale()">SIGN & SEAL ❤️</button>
+            </div>
+        </div>
+
+        <!-- STEP 6: FINALE + COUPONS -->
+        <div id="step6" class="step">
+            <h1 style="color: var(--pink);">HAPPY VALENTINE'S DAY! ❤️</h1>
+            <p style="font-style: italic;">Ab itna romantic ho gaye hain, ek plate Momos khila do! 🥟😂</p>
+            <div class="coupon-card" id="coupon-area">
+                <div style="font-size: 0.7rem;">VALENTINE COUPON REWARD:</div>
+                <div id="coupon-val" style="font-size: 1.2rem;">Click to Spin! 🎰</div>
+            </div>
+            <button class="btn" id="spin-btn" onclick="spinCoupon()">SPIN FOR REWARD</button>
+        </div>
+
+    </div>
+
+    <script>
+        // NAVIGATION
+        function nextStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+        }
+
+        // STEP 1: SCAN
+        let scanTimer;
+        function startScan(e) { if(e) e.preventDefault(); document.getElementById('scan-status').innerText = "SCANNING POO-ID..."; scanTimer = setInterval(() => { confetti({ particleCount: 20 }); clearInterval(scanTimer); nextStep(2); }, 2000); }
+        function stopScan() { clearInterval(scanTimer); document.getElementById('scan-status').innerText = "[ Scan Interrupted ]"; }
+
+        // STEP 2: MOOD
+        function updateMood(v) {
+            const emojis = ["😤", "🥺", "😐", "😊", "🥰"];
+            const texts = ["Dangerous (Dur raho)", "Manana Padega", "Thik hai.", "Cute.", "Too Romantic!"];
+            document.getElementById('mood-emoji').innerText = emojis[v-1];
+            document.getElementById('mood-text').innerText = texts[v-1];
+            document.getElementById('mood-btn').style.display = 'block';
+        }
+
+        // STEP 4: MIST WIPE
+        function initMistStep() {
+            nextStep(4);
+            const canvas = document.getElementById('mist-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+            ctx.fillStyle = "#444";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'destination-out';
+
+            const handleWipe = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
+                checkWipe();
+            };
+            canvas.addEventListener('mousemove', handleWipe);
+            canvas.addEventListener('touchmove', handleWipe);
+
+            let message = "Poo, you are my Jaan. My Jahaan. My best friend. No matter how many times we fight or how 'Pagal' you get, I will always choose you. Every single time. Happy Valentine's Day, Maalik...";
+            let i = 0; function type() { if(i < message.length) { document.getElementById('typewriter').innerHTML += message.charAt(i); i++; setTimeout(type, 40); } }
+            type();
+        }
+
+        function checkWipe() { setTimeout(() => { document.getElementById('next4').style.display = 'block'; }, 4000); }
+
+        // STEP 6: COUPONS
+        function spinCoupon() {
+            const rewards = ["1 Free Argument Win 🏆", "1 Full Body Massage 💆‍♀️", "1 Movie of your choice 🎬", "Unlimited Cuddles (24h) 🧸", "Sorry without question 🏳️"];
+            let count = 0;
+            let interval = setInterval(() => {
+                document.getElementById('coupon-val').innerText = rewards[Math.floor(Math.random()*rewards.length)];
+                count++;
+                if(count > 10) { clearInterval(interval); document.getElementById('spin-btn').style.display = 'none'; confetti(); }
+            }, 100);
+        }
+
+        function finalFinale() {
+            nextStep(6);
+            var end = Date.now() + (15 * 1000);
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#c5a059', '#ff4d6d'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#c5a059', '#ff4d6d'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+    </script>
+</body>
+</html>
